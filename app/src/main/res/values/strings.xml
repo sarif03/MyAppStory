@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">MyAppStory</string>
+    <string name="title_welcome">Selamat datang di StoryApp</string>
+    <string name="description_welcome">Saling berbagi informasi, berita, dan perlihatkan kepada orang-orang keseharian anda belajar di Dicoding</string>
+    <string name="daftar">Daftar</string>
+    <string name="masuk">Masuk</string>
+    <string name="title_login">Sudah siap Menjelajah Story?</string>
+    <string name="description_login">Login terlebih dahulu ya</string>
+    <string name="email">Email</string>
+    <string name="masukkan_email">Masukkan Email</string>
+    <string name="kata_sandi">Kata Sandi</string>
+    <string name="masukkan_kata_sandi">Masukkan Kata Sandi</string>
+    <string name="title_register">Lengkapi data dirimu dibawah ini</string>
+    <string name="nama">Nama</string>
+    <string name="masukkan_nama">Masukkan Nama</string>
+    <string name="logout">logout</string>
+    <string name="name">Name</string>
+    <string name="addstory">AddStory</string>
+    <string name="description">Description</string>
+    <string name="camera">Camera</string>
+    <string name="galery">Galery</string>
+    <string name="upload">Upload</string>
+    <string name="empty_image_warning">foto belum ditambahkan</string>
+</resources>
