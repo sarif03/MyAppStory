@@ -41,11 +41,13 @@ class AddStoryActivity : AppCompatActivity() {
         binding = ActivityAddStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.edAddDescription.addTextChangedListener(btnEnabled)
+        binding.apply {
+            edAddDescription.addTextChangedListener(btnEnabled)
+            btnCamera.setOnClickListener {startCamera()}
+            btnGallery.setOnClickListener {startGallery()}
+            btnUpload.setOnClickListener {uploadImage()}
+        }
 
-        binding.btnCamera.setOnClickListener {startCamera()}
-        binding.btnGallery.setOnClickListener {startGallery()}
-        binding.btnUpload.setOnClickListener {uploadImage()}
     }
 
     private fun startGallery() {

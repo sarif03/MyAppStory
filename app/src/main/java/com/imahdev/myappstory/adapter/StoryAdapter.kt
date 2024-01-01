@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.recyclerview.widget.RecyclerView
@@ -21,11 +22,9 @@ class StoryAdapter(private var listStory: List<ListStoryItem>): RecyclerView.Ada
         fun bind(user: ListStoryItem) {
             with(binding) {
                 tvItemName.text = user.name
-                Glide.with(itemView.context)
-                    .load(user.photoUrl)
-                    .centerCrop()
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(ivItemPhoto)
+                ivItemPhoto.loadImage(
+                    url = user.photoUrl
+                )
 
 
                     itemView.setOnClickListener {
@@ -57,6 +56,13 @@ class StoryAdapter(private var listStory: List<ListStoryItem>): RecyclerView.Ada
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(listStory[position])
     }
+}
+
+fun ImageView.loadImage(url: String) {
+    Glide.with(this.context)
+        .load(url)
+        .centerCrop()
+        .into(this)
 }
 
 

@@ -8,6 +8,7 @@ import android.os.Parcelable
 import androidx.activity.viewModels
 import com.bumptech.glide.Glide
 import com.imahdev.myappstory.R
+import com.imahdev.myappstory.adapter.loadImage
 import com.imahdev.myappstory.data.remote.response.ListStoryItem
 import com.imahdev.myappstory.databinding.ActivityDetailBinding
 import com.imahdev.myappstory.view.ViewModelFactory
@@ -28,9 +29,7 @@ class DetailActivity : AppCompatActivity() {
         if (story!= null) {
             binding.tvDetailName.text = story.name
             binding.tvDetailDescription.text = story.description
-            Glide.with(this)
-                .load(story.photoUrl)
-                .into(binding.ivDetailPhoto)
+            binding.ivDetailPhoto.loadImage(url = story.photoUrl)
         }
 
     }
