@@ -8,6 +8,7 @@ import com.imahdev.myappstory.di.Injection
 import com.imahdev.myappstory.view.add.AddStoryVIewModel
 import com.imahdev.myappstory.view.login.LoginVIewModel
 import com.imahdev.myappstory.view.main.MainViewModel
+import com.imahdev.myappstory.view.maps.MapsViewModel
 import com.imahdev.myappstory.view.register.RegisterViewModel
 
 class ViewModelFactory(private val repository: StoryRepository): ViewModelProvider.NewInstanceFactory() {
@@ -20,6 +21,9 @@ class ViewModelFactory(private val repository: StoryRepository): ViewModelProvid
             }
             modelClass.isAssignableFrom(AddStoryVIewModel::class.java) -> {
                 AddStoryVIewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(MapsViewModel::class.java) -> {
+                MapsViewModel(repository) as T
             }
             modelClass.isAssignableFrom(LoginVIewModel::class.java) -> {
                 LoginVIewModel(repository) as T

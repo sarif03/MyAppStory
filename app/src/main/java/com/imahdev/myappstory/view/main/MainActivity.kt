@@ -3,18 +3,16 @@ package com.imahdev.myappstory.view.main
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowInsets
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.imahdev.myappstory.view.maps.MapsActivity
 import com.imahdev.myappstory.R
 import com.imahdev.myappstory.adapter.StoryAdapter
 import com.imahdev.myappstory.databinding.ActivityMainBinding
@@ -96,17 +94,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_logout) {
-            AlertDialog.Builder(this)
-                .setTitle("Konfirmasi Keluar")
-                .setMessage("Apakah anda yakin ingin keluar?")
-                .setCancelable(false)
-                .setPositiveButton("Ya") { _, _ ->
-                    mainViewModel.logout()
-                }
-                .setNegativeButton("Tidak") { dialog, _ ->
-                    dialog.cancel()
-                }.show()
+
+        when (item.itemId) {
+            R.id.action_logout -> {
+                AlertDialog.Builder(this)
+                    .setTitle("Konfirmasi Keluar")
+                    .setMessage("Apakah anda yakin ingin keluar?")
+                    .setCancelable(false)
+                    .setPositiveButton("Ya") { _, _ ->
+                        mainViewModel.logout()
+                    }
+                    .setNegativeButton("Tidak") { dialog, _ ->
+                        dialog.cancel()
+                    }.show()
+
+            }
+            R.id.action_maps -> {
+                startActivity(Intent(this, MapsActivity::class.java))
+            }
         }
         return super.onOptionsItemSelected(item)
     }

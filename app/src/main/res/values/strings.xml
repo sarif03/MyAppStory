@@ -21,4 +21,7 @@
     <string name="galery">Galery</string>
     <string name="upload">Upload</string>
     <string name="empty_image_warning">foto belum ditambahkan</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="google_maps">Google Maps</string>
+    <string name="minimal_password_8_character">Minimal password 8 character</string>
 </resources>

@@ -6,7 +6,6 @@ import com.imahdev.myappstory.data.local.pref.UserModel
 import com.imahdev.myappstory.data.local.pref.UserPreferences
 import com.imahdev.myappstory.data.remote.response.StoryResponse
 import com.imahdev.myappstory.data.remote.retrofit.ApiService
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import okhttp3.MultipartBody
@@ -32,12 +31,13 @@ class StoryRepository private constructor(private var apiService: ApiService, pr
         return apiService.getStories(token)
     }
 
-
     suspend fun addStory(
         token: String,
         multipartBody: MultipartBody.Part,
         description: RequestBody,
     ) = apiService.uploadImage(token,multipartBody,description)
+
+    suspend fun getStoriesWithLocation(token: String) = apiService.getStoriesWithLocation(token)
 
 
     fun getToken() = runBlocking {userPreferences.getSession().first().token }
