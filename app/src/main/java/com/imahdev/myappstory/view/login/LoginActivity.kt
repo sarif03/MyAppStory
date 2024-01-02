@@ -123,7 +123,8 @@ class LoginActivity : AppCompatActivity() {
             val edtEmail = binding.edLoginEmail.text.toString().trim()
             val edtPass = binding.edRegisterPassword.text.toString().trim()
 
-            binding.edRegisterPassword.error.isNullOrEmpty()
+            binding.btnLogin.isEnabled =
+                Patterns.EMAIL_ADDRESS.matcher(edtEmail).matches() && edtPass.length >= 8
         }
 
         override fun afterTextChanged(s: Editable?) {

@@ -1,10 +1,16 @@
 package com.imahdev.myappstory.data.repository
 
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
+import com.imahdev.myappstory.data.StoryPagingSource
 import com.imahdev.myappstory.data.local.pref.UserModel
 import com.imahdev.myappstory.data.local.pref.UserPreferences
-import com.imahdev.myappstory.data.remote.response.StoryResponse
+import com.imahdev.myappstory.data.remote.response.ListStoryItem
 import com.imahdev.myappstory.data.remote.retrofit.ApiService
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -27,8 +33,15 @@ class StoryRepository private constructor(private var apiService: ApiService, pr
         userPreferences.logout()
     }
 
-    suspend fun getStories(token: String): StoryResponse {
-        return apiService.getStories(token)
+    fun getStories(token: String): LiveData<PagingData<ListStoryItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            pagingSourceFactory = {
+                StoryPagingSource(apiService, token)
+            }
+        ).liveData
     }
 
     suspend fun addStory(
