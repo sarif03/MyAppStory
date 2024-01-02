@@ -7,13 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.imahdev.myappstory.view.maps.MapsActivity
 import com.imahdev.myappstory.R
+import com.imahdev.myappstory.adapter.LoadingStateAdapter
 import com.imahdev.myappstory.adapter.StoryAdapter
 import com.imahdev.myappstory.databinding.ActivityMainBinding
 import com.imahdev.myappstory.view.ViewModelFactory
@@ -47,21 +47,15 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel.getSession().observe(this) { user ->
             if (user.isLogin) {
-
-                mainViewModel.isLoading.observe(this) {
-                    showLoading(it)
-                }
-                mainViewModel.getStories()
-                mainViewModel.stories.observe(this) { response ->
-                    binding.swipeBottomRefresh.isRefreshing = false
-                    if (response.error) {
-                        Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
-
-
-                    } else {
-                        val adapter = StoryAdapter(response.listStory)
-                        binding.rvStory.adapter = adapter
+                val adapter = StoryAdapter()
+                binding.rvStory.adapter = adapter.withLoadStateFooter(
+                    footer = LoadingStateAdapter {
+                        adapter.retry()
                     }
+                )
+
+                mainViewModel.stories.observe(this) {
+                    adapter.submitData(lifecycle, it)
                 }
             } else {
                 startActivity(Intent(this, WelcomeActivity::class.java))
@@ -73,7 +67,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun refreshStories() {
         if (isNetworkAvailable()) {
-            mainViewModel.getStories()
+            mainViewModel.stories
+            binding.swipeBottomRefresh.isRefreshing = false
         } else {
              binding.swipeBottomRefresh.isRefreshing = false
             Toast.makeText(this, "Tidak ada koneksi internet", Toast.LENGTH_SHORT).show()
@@ -114,10 +109,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun isNetworkAvailable(): Boolean {
